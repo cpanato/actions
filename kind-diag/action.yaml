@@ -64,7 +64,7 @@ runs:
         done
 
     - name: Collect grafana dashboards
-      if: ${{ collect-grafana != "false" }}
+      if: ${{ inputs.collect-grafana != "false" }}
       shell: bash
       run: |
         mkdir -p /tmp/graphs
@@ -87,7 +87,7 @@ runs:
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
-      if: ${{ collect-grafana != "false" }}
+      if: ${{ inputs.collect-grafana != "false" }}
       with:
         name: graphs.tar.gz
         path: /tmp/graphs.tar.gz
