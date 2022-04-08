@@ -69,6 +69,7 @@ runs:
       run: |
         mkdir -p /tmp/graphs
         kubectl port-forward -n monitoring-system svc/prometheus-grafana 3000:80 &
+        until curl --max-time 5 http://localhost:3000 ; do echo waiting for grafana; sleep 5; done;
         curl "http://admin:prom-operator@localhost:3000/render/d/gulfstream/gulfstream?width=1200&height=1800&var-reconciler=ConfigMapWebhook" > /tmp/graphs/gulfstream.png
         tar -zcf /tmp/graphs.tar.gz -C /tmp graphs
 
