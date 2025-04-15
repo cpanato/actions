@@ -39,6 +39,10 @@ inputs:
       The committer name and email address in the format `Display Name <email@address.com>`.
       Defaults to the GitHub Actions bot user.
     default: 'github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>'
+  working_directory:
+    description: "The working directory to run the action in."
+    default: '.'
+    required: false
 
 outputs:
     bumped_version:
@@ -83,6 +87,7 @@ runs:
     - name: Bump the version or used the forced version
       id: semver-bump
       shell: bash
+      working-directory: ${{ inputs.working_directory }}
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
       run: |
